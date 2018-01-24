@@ -8,3 +8,6 @@ class NewsItem(models.Model):
     date = models.DateField(auto_now_add=True)
     link = models.URLField(max_length=450, blank=True, null=True)
     picture = models.URLField(max_length=450, blank=True, null=True)
+
+    def __str__(self):
+    	return self.title
