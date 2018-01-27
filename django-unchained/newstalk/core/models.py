@@ -10,4 +10,4 @@ class NewsItem(models.Model):
     picture = models.URLField(max_length=450, blank=True, null=True)
 
     def __str__(self):
-    	return self.title
+        return self.title
