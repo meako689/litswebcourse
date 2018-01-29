@@ -1,0 +1,14 @@
+<html>
+<body>
+<h1> News: </h1>
+<ul>
+{% for item in object_list %}
+    <li> {{item.title}}
+        {% if item.picture %} 
+            <img src="{{item.picture}}">
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+</body>
+</html>
