@@ -2,15 +2,30 @@
 Repo for python course
 
 [Download Virtual machine here](https://www.dropbox.com/sh/7xr6mhn003xh303/AAABQXUGMcu-5NvaBK5GwF68a?dl=0)
+```
+username:user
+password:123
+```
 
 ## Django unchained#
 open terminal 
+### Setup
 ```
 git clone https://github.com/meako689/litswebcourse
 cd litswebcourse/django-unchained
 source setup.sh
 cd newstalk
 ```
+### populate DB
+```
+python manage.py fetchnews
+```
+
+### runserver
+```
+python manage.py runserver
+```
+
 ## Lessons:
 
 1. [Intro](https://docs.google.com/presentation/d/1ItZzgLcEAKJ7_nrEt7E-xD_uX6-8koXD2wjGowWpk6A/edit#slide=id.g25f6af9dd6_0_0)
