@@ -25,11 +25,23 @@ def api_news_list(request):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, staus=400)
+        return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
 def api_news_detail(request, id):
+    item = NewsItem.objects.get(id=id)
     if request.method == 'GET':
-        item = NewsItem.objects.get(id=id)
         serializer = NewsItemSerializer(item)
         return JsonResponse(serializer.data, safe=False)
+
+    if request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = NewsItemSerializer(item, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    if request.method == 'DELETE':
+        item.delete()
+        return JsonResponse({}, status=204)
