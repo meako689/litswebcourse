@@ -25,11 +25,24 @@ class ArticleList extends React.Component {
         this.state = {};
         this.state.articles = props.articles;
     }
+
+    handleClick(article){
+      let articles_new = this.state.articles.slice();
+      let index = articles_new.indexOf(article);
+      articles_new.splice(index, 1);
+
+      this.setState({
+        articles: articles_new
+      })
+    }
+
     render(){
         return (<div class="articles">
                 {
                   this.state.articles.map((article) => {
-                    return <Article item={article}/>
+                    return <Article
+                            clickHandler={() => {this.handleClick(article)}}
+                            item={article}/>
                   })
                 }
                </div>
@@ -43,16 +56,10 @@ class Article extends React.Component {
         this.state.article = props.item;
     }
 
-    handleClick(){
-      this.state.article.title = 'clicked';
-      this.setState({
-        article: this.state.article
-      })
-    }
 
     render(){
       return (
-        <div onClick={() => this.handleClick()}>
+        <div onClick={() => {this.props.clickHandler()}}>
         {this.state.article.title}
         </div>
       )
