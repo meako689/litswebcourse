@@ -6,9 +6,15 @@ class App extends React.Component {
 
     constructor(props){
         super(props)
+        this.state = {};
+        this.state.articles = data.items;
     }
     render(){
-        return "<h1>Hello World</h1>"
+        return (<div>
+                 <h1>News! </h1>
+                 <ArticleList articles={this.state.articles}/>
+                </div>
+        )
     }
 }
 
@@ -16,18 +22,33 @@ class ArticleList extends React.Component {
 
     constructor(props){
         super(props)
+        this.state = {};
         this.state.articles = props.articles;
     }
     render(){
-        return (this.articles.map((article) => {<Article item=article/>}))
+        return (<div class="articles">
+                {
+                  this.state.articles.map((article) => {
+                    return <Article item={article}/>
+                  })
+                }
+               </div>
+        )
     }
 }
 class Article extends React.Component {
     constructor(props){
         super(props)
+        this.state = {};
         this.state.item = props.item;
     }
-    render(){return}
+    render(){
+      return (
+        <div>
+        {this.state.item.title}
+        </div>
+      )
+    }
 }
 
 ReactDOM.render(
