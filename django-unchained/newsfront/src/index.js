@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './data.json'
 
+
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css'
+
+
 class App extends React.Component {
 
     constructor(props){
@@ -10,8 +15,8 @@ class App extends React.Component {
         this.state.articles = data.items;
     }
     render(){
-        return (<div>
-                 <h1>News! </h1>
+        return (<div className="container">
+                 <h1 className="row">News! </h1>
                  <ArticleList articles={this.state.articles}/>
                 </div>
         )
@@ -59,8 +64,16 @@ class Article extends React.Component {
 
     render(){
       return (
-        <div onClick={() => {this.props.clickHandler()}}>
-        {this.state.article.title}
+        <div
+        className="row article"
+        onClick={() => {this.props.clickHandler()}}>
+        <div className="col-4">
+          <img className="img-thumbnail" src={this.state.article.picture} alt="" />
+        </div>
+        <div className="col-8">
+          {this.state.article.title}
+        </div>
+        
         </div>
       )
     }
