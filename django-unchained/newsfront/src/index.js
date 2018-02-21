@@ -40,12 +40,20 @@ class Article extends React.Component {
     constructor(props){
         super(props)
         this.state = {};
-        this.state.item = props.item;
+        this.state.article = props.item;
     }
+
+    handleClick(){
+      this.state.article.title = 'clicked';
+      this.setState({
+        article: this.state.article
+      })
+    }
+
     render(){
       return (
-        <div>
-        {this.state.item.title}
+        <div onClick={() => this.handleClick()}>
+        {this.state.article.title}
         </div>
       )
     }
