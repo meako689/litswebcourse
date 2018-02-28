@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import data from './data.json'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import _ from 'lodash';
+
+import data from './data.json'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css'
@@ -18,7 +20,7 @@ class App extends React.Component {
                 </div>
             </nav>
             <Router>
-              <div class="container">
+              <div className="container">
                     <Route exact path="/" component={Home}/>
                     <Route path={"/detali/:articleId"} component={ArticleDetail}/>
               </div>
@@ -47,7 +49,9 @@ class ArticleDetail extends React.Component {
     }
 
     componentDidMount(){
-      var article = data.items[2];
+      var self = this;
+      var article = _.find(data.items,
+        function(item){return item.id == self.state.id});
 
       this.setState({
         article:article,
@@ -56,7 +60,6 @@ class ArticleDetail extends React.Component {
     }
 
     render(){
-        console.log(this.state);
         return <Article item={this.state.article}/>
     }
 
@@ -95,23 +98,21 @@ class ArticleList extends React.Component {
     }
 }
 class Article extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {};
-        this.state.article = props.item;
-    }
-
 
     render(){
       return (
         <div
         className="row article"
-        onClick={() => {this.props.clickHandler()}}>
+        >
         <div className="col-4">
-          <img className="img-thumbnail" src={this.state.article.picture} alt="" />
+          <img className="img-thumbnail" src={this.props.item.picture} alt="" />
         </div>
         <div className="col-8">
-          {this.state.article.title}
+          <div>
+            {this.props.item.title}
+          </div>
+
+          <Link to={"detali/"+this.props.item.id}>Read more -></Link>
         </div>
         
         </div>
