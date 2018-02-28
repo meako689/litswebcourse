@@ -16,7 +16,10 @@ class App extends React.Component {
                    <a className="navbar-brand">News! </a>
             </nav>
           <Router>
+          <div>
                 <Route exact path="/" component={Home}/>
+                <Route path={"/detali/:articleId"} component={ArticleDetail}/>
+          </div>
           </Router>
           </div>
         )
@@ -33,6 +36,31 @@ class Home extends React.Component {
       return <ArticleList articles={this.state.articles}/>
     }
 }
+class ArticleDetail extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {};
+        this.state.id = props.match.params.articleId;
+        this.state.article = {};
+    }
+
+    componentDidMount(){
+      var article = data.items[2];
+
+      this.setState({
+        article:article,
+        id:this.state.id
+      });
+    }
+
+    render(){
+        console.log(this.state);
+        return <Article item={this.state.article}/>
+    }
+
+}
+
+
 class ArticleList extends React.Component {
 
     constructor(props){
