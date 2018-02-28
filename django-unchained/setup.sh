@@ -6,4 +6,10 @@ if [ ! -f $activate ]; then
 fi
 source $activate;
 pip install -r ./newstalk/requirements.pip;
-python newstalk/manage.py migrate
+python newstalk/manage.py migrate;
+
+cd newsfront;
+npm install;
+cd -;
+
+

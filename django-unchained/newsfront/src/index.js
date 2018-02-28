@@ -11,16 +11,18 @@ class App extends React.Component {
 
     render(){
         return (
-          <div className="container">
-            <nav className="navbar navbar-inverse bg-inverse">
-                   <a className="navbar-brand">News! </a>
-            </nav>
-          <Router>
           <div>
-                <Route exact path="/" component={Home}/>
-                <Route path={"/detali/:articleId"} component={ArticleDetail}/>
-          </div>
-          </Router>
+            <nav className="navbar navbar-inverse bg-inverse">
+                <div className="container">
+                   <a className="navbar-brand">News! </a>
+                </div>
+            </nav>
+            <Router>
+              <div class="container">
+                    <Route exact path="/" component={Home}/>
+                    <Route path={"/detali/:articleId"} component={ArticleDetail}/>
+              </div>
+            </Router>
           </div>
         )
     }
