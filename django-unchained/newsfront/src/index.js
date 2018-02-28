@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './data.json'
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css'
@@ -9,20 +9,30 @@ import './index.css'
 
 class App extends React.Component {
 
+    render(){
+        return (
+          <div className="container">
+            <nav className="navbar navbar-inverse bg-inverse">
+                   <a className="navbar-brand">News! </a>
+            </nav>
+          <Router>
+                <Route exact path="/" component={Home}/>
+          </Router>
+          </div>
+        )
+    }
+}
+
+class Home extends React.Component {
     constructor(props){
         super(props)
         this.state = {};
         this.state.articles = data.items;
     }
     render(){
-        return (<div className="container">
-                 <h1 className="row">News! </h1>
-                 <ArticleList articles={this.state.articles}/>
-                </div>
-        )
+      return <ArticleList articles={this.state.articles}/>
     }
 }
-
 class ArticleList extends React.Component {
 
     constructor(props){
