@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import _ from 'lodash';
+import axios from 'axios';
 
 import data from './data.json'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css'
+
+var APIURL = 'http://127.0.0.1:8000/api';
 
 
 class App extends React.Component {
@@ -50,13 +53,15 @@ class ArticleDetail extends React.Component {
 
     componentDidMount(){
       var self = this;
-      var article = _.find(data.items,
-        function(item){return item.id == self.state.id});
 
-      this.setState({
-        article:article,
-        id:this.state.id
+      axios.get(APIURL+'/news/'+self.state.id).then(response => {
+        var article = response.data;
+        self.setState({
+          article:article,
+          id:self.state.id
+        });
       });
+
     }
 
     render(){
