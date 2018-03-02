@@ -16,19 +16,19 @@ class App extends React.Component {
 
     render(){
         return (
+          <Router>
           <div>
             <nav className="navbar navbar-inverse bg-inverse">
                 <div className="container">
-                   <a className="navbar-brand">News! </a>
+                   <Link to="/" className="navbar-brand">News! </Link>
                 </div>
             </nav>
-            <Router>
               <div className="container">
                     <Route exact path="/" component={Home}/>
                     <Route path={"/detali/:articleId"} component={ArticleDetail}/>
               </div>
-            </Router>
           </div>
+          </Router>
         )
     }
 }
@@ -37,7 +37,17 @@ class Home extends React.Component {
     constructor(props){
         super(props)
         this.state = {};
-        this.state.articles = data.items;
+        this.state.articles = [];
+    }
+    componentDidMount(){
+      var self = this;
+      axios.get(APIURL+'/news').then(response => {
+        var articles = response.data;
+        self.setState({
+          articles:articles,
+        });
+      });
+
     }
     render(){
       return <ArticleList articles={this.state.articles}/>
@@ -72,30 +82,11 @@ class ArticleDetail extends React.Component {
 
 
 class ArticleList extends React.Component {
-
-    constructor(props){
-        super(props)
-        this.state = {};
-        this.state.articles = props.articles;
-    }
-
-    handleClick(article){
-      let articles_new = this.state.articles.slice();
-      let index = articles_new.indexOf(article);
-      articles_new.splice(index, 1);
-
-      this.setState({
-        articles: articles_new
-      })
-    }
-
     render(){
         return (<div class="articles">
                 {
-                  this.state.articles.map((article) => {
-                    return <Article
-                            clickHandler={() => {this.handleClick(article)}}
-                            item={article}/>
+                  this.props.articles.map(article => {
+                    return <Article item={article}/>
                   })
                 }
                </div>
