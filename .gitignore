@@ -107,7 +107,7 @@ ENV/
 *.log
 *.rej
 *.swo
-.swp
+*.swp
 *.vi
 *~
 *.sass-cache
