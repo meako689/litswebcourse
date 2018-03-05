@@ -40,6 +40,6 @@ npm start
 3. [Data formats](https://docs.google.com/presentation/d/1INFraZni_9iA3gIh4JAhSwdqL0-gdF_kkyicJQuvPk0/edit#slide=id.g25f6af9dd6_0_0)
 4. [MVC / Django](https://docs.google.com/presentation/d/1mA_staESkvwwIXvSoq2TDCNu2xDt9cf0RuYydZOzzaA/edit#slide=id.g25f6af9dd6_0_0)
 5. [Rest/ Django DRF](https://docs.google.com/presentation/d/1aMGm9uq8FDnUQug7BSfpX2FjmyqAD49I1iOaHGSZMdw/edit?usp=sharing)
-6. [Front End / React] (https://drive.google.com/open?id=1x7kZZbL8oizMCI47kO_A8l_UfSvoWiChXN5qMCKSJO0)
+6. [Front End / React](https://drive.google.com/open?id=1x7kZZbL8oizMCI47kO_A8l_UfSvoWiChXN5qMCKSJO0)
 
 
