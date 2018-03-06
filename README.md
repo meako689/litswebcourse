@@ -7,7 +7,8 @@ username:user
 password:123
 ```
 
-## Django unchained#
+
+## Django unchained
 open terminal 
 ### Setup
 ```
