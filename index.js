@@ -56,38 +56,58 @@ class Home extends React.Component {
     }
 }
 class Add extends React.Component {
-	onAdd = (title, description, link, picture) => {
-    	this.state.goals.push({
-     		id: nextId,
-      		title: title,
-      		description: description,
-      		link: link,
-      		picture: picture
-     	});
-    	this.setState(this.state);
-    		nextId += 1;
-  		};
-  	};
+    constructor(props){
+        super(props)
+        this.state = {redirect:false};
+        this.state.article = {};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentWillReceiveProps(props){
+      this.setState(
+        {article:props.article}
+      );
+    }
+    handleSubmit(event){
+      event.preventDefault();
+      axios.post(APIURL+'/news',
+                this.state.article).then(
+                  result => {
+                    this.props.onArticleUpdate(this.state.article);
+                    console.log(result);
+                    this.setState({redirect: true});})
+                  
+    }
+    handleChange(event){
+        var article = this.state.article;
+        article[event.target.name] = event.target.value;
+        this.setState(
+          {article:article}
+        );
+    }
     render(){
+      if (this.state.redirect){
+        return <Redirect to="/"/>;
+      }
       return (<div>
         <h2>Add: {this.state.article.title}</h2>
         <form onSubmit={this.handleSubmit}>
         <label> Title: {this.state.article.title}
-          <input name="title" type="text" onChange={this.onAdd}/>
+          <input name="title" type="text" onChange={this.handleChange}/>
         </label>
         <label> Description: {this.state.article.description}
-          <input name="description" type="text" onChange={this.onAdd}/>
+          <input name="description" type="text" onChange={this.handleChange}/>
         </label>
         <label> Link: {this.state.article.link}
-          <input name="link" type="text" onChange={this.onAdd}/>
+          <input name="link" type="text" onChange={this.handleChange}/>
         </label>
-        <label> Image: {this.state.article.picture}
-          <input name="img" type="image" onChange={this.onAdd}/>
+        <label> Picture: {this.state.article.picture}
+          <input name="picture" type="image" onChange={this.handleChange}/>
         </label>
           <input type="submit" value="save"/>
         </form>
       </div>)
-    };
+       }
 }
 class ArticleDetail extends React.Component {
     constructor(props){
