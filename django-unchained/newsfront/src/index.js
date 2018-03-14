@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import _ from 'lodash';
 import axios from 'axios';
-
-import data from './data.json'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css'
@@ -245,12 +242,12 @@ class Chat extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-      let serverUrl = 'ws://demos.kaazing.com/echo';
+      let serverUrl = 'ws://127.0.0.1:8000/news/chat/';
       this.connection = new WebSocket(serverUrl);
 
       this.connection.onmessage = evt => {
         let messages = this.state.messages;
-        messages.push(evt.data)
+        messages.push(JSON.parse(evt.data));
         this.setState({messages:messages});
       }
     }
@@ -265,14 +262,11 @@ class Chat extends React.Component{
     }
     handleSubmit(event){
       event.preventDefault();
-      this.connection.send(JSON.stringify(this.state.newMessage));
-
-      let newMessage = event.target.value;
+      this.connection.send(JSON.stringify({message: this.state.newMessage}));
       this.setState({
         messages:this.state.messages,
         newMessage:""
       })
-
     }
 
     render(){
@@ -280,7 +274,7 @@ class Chat extends React.Component{
       <div>
         <h1>Chat</h1>
         <ul>
-        { this.state.messages.map( (msg, idx) => <li key={'msg-' + idx }>{ msg }</li> )}
+        { this.state.messages.map( (msg, idx) => <li key={'msg-' + idx }>{ msg.message }</li> )}
         </ul>
         <hr/>
         <form onSubmit={this.handleSubmit} >
