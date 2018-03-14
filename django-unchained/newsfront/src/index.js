@@ -13,7 +13,6 @@ var APIURL = 'http://127.0.0.1:8000/api';
 
 
 class App extends React.Component {
-
     render(){
         return (
           <Router>
@@ -21,12 +20,14 @@ class App extends React.Component {
             <nav className="navbar navbar-inverse bg-inverse">
                 <div className="container">
                    <Link to="/" className="navbar-brand">News! </Link>
+                   <Link to="/chat" >Chat</Link>
                 </div>
             </nav>
               <div className="container">
                     <Route exact path="/" component={Home}/>
                     <Route path={"/create"} component={ArticleCreate}/>
                     <Route path={"/detali/:articleId"} component={ArticleDetail}/>
+                    <Route path={"/chat"} component={Chat}/>
               </div>
           </div>
           </Router>
@@ -231,6 +232,68 @@ class ArticleCreate extends React.Component{
       </div>)
        }
 }
+
+class Chat extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+          messages:[],
+          newMessage:""
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount(){
+      let serverUrl = 'ws://demos.kaazing.com/echo';
+      this.connection = new WebSocket(serverUrl);
+
+      this.connection.onmessage = evt => {
+        let messages = this.state.messages;
+        messages.push(evt.data)
+        this.setState({messages:messages});
+      }
+    }
+    handleChange(event){
+      event.preventDefault();
+      let newMessage = event.target.value;
+      this.setState({
+        messages:this.state.messages,
+        newMessage:newMessage
+      })
+
+    }
+    handleSubmit(event){
+      event.preventDefault();
+      this.connection.send(JSON.stringify(this.state.newMessage));
+
+      let newMessage = event.target.value;
+      this.setState({
+        messages:this.state.messages,
+        newMessage:""
+      })
+
+    }
+
+    render(){
+      return (
+      <div>
+        <h1>Chat</h1>
+        <ul>
+        { this.state.messages.map( (msg, idx) => <li key={'msg-' + idx }>{ msg }</li> )}
+        </ul>
+        <hr/>
+        <form onSubmit={this.handleSubmit} >
+          <input onChange={this.handleChange} placeholder="message" value={this.state.newMessage} type="text"></input>
+          <input type="submit" value="send"/>
+        </form>
+      </div>
+      )
+
+    }
+  
+}
+
 
 ReactDOM.render(
   <App />,
