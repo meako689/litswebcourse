@@ -9,9 +9,11 @@ class ChatConsumer(WebsocketConsumer):
         pass
 
     def receive(self, text_data):
+        usr = self.scope['user']
+        username = usr.username
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         print (message)
         self.send(text_data=json.dumps({
-            'message': message*10
+            'message': message  + ' ' + "-" + str(usr)
         }))
