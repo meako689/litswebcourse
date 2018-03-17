@@ -84,10 +84,12 @@ class ArticleDetail extends React.Component {
           <div>
           <h1>{this.state.article.title}</h1>
           <hr/>
-          <ArticleEdit onArticleUpdate={this.onArticleUpdate} article={this.state.article}/>
+          <Article article={this.state.article}/>
+          <hr/>
+          <Chat articleId={this.state.id}/>
+
         </div>)
     }
-
 }
 
 class ArticleList extends React.Component {
@@ -242,7 +244,7 @@ class Chat extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-      let serverUrl = 'ws://127.0.0.1:8000/news/chat/';
+      let serverUrl = 'ws://127.0.0.1:8000/news/chat/'+this.props.articleId;
       this.connection = new WebSocket(serverUrl);
 
       this.connection.onmessage = evt => {
