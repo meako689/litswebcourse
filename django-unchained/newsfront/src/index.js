@@ -87,7 +87,6 @@ class ArticleDetail extends React.Component {
           <Article article={this.state.article}/>
           <hr/>
           <Chat articleId={this.state.id}/>
-
         </div>)
     }
 }
@@ -289,6 +288,7 @@ class Chat extends React.Component{
     }
   
 }
+Chat.defaultProps = {articleId:""};
 
 
 ReactDOM.render(
