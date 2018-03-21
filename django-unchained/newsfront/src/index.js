@@ -6,7 +6,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css'
 
-var APIURL = 'http://127.0.0.1:8000/api';
+var APIURL = '/api';
+var WSURL = 'ws://'+window.location.host;
 
 
 class App extends React.Component {
@@ -243,7 +244,7 @@ class Chat extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-      let serverUrl = 'ws://127.0.0.1:8000/news/chat/'+this.props.articleId;
+      let serverUrl = WSURL+'/news/chat/'+this.props.articleId;
       this.connection = new WebSocket(serverUrl);
 
       this.connection.onmessage = evt => {

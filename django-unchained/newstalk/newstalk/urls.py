@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from core.views import NewsList
+from core.views import index
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', NewsList.as_view()),
+    path('', index),
     path('api/', include('core.api_urls'))
 ]

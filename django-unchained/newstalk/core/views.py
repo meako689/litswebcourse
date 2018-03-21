@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.generic import ListView
@@ -11,6 +12,14 @@ from rest_framework import generics
 from .models import NewsItem
 from .serializers import NewsItemSerializer
 
+from django.conf import settings 
+
+
+def index(request):
+    path = os.path.join(settings.FRONTEND_DIR, 'index.html')
+    with open(path, 'r') as indexfile:
+        content = indexfile.read()
+        return HttpResponse(content)
 
 class NewsList(ListView):
     model = NewsItem
