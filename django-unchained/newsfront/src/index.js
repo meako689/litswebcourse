@@ -94,7 +94,7 @@ class ArticleDetail extends React.Component {
 
 class ArticleList extends React.Component {
     render(){
-        return (<div class="articles">
+        return (<div className="articles">
                 <Link to="/create" className="navbar-brand">Create a post! </Link>
                 {
                   this.props.articles.map(article => {

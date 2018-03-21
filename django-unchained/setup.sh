@@ -10,6 +10,7 @@ python newstalk/manage.py migrate;
 
 cd newsfront;
 npm install;
+npm run build;
 cd -;
 
 
