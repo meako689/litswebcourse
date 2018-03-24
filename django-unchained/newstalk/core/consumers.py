@@ -3,7 +3,7 @@ import json
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['pk']
+        self.room_name = self.scope['url_route']['kwargs'].get('pk', 'all')
         self.room_group_name = 'chat_%s' % self.room_name
 
         # Join room group
