@@ -6,8 +6,9 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css'
 
+var SECURE = window.location.protocol === "https:" ? "s" : "";
 var APIURL = '/api';
-var WSURL = 'ws://'+window.location.host;
+var WSURL = 'ws'+SECURE+'://'+window.location.host;
 
 
 class App extends React.Component {
@@ -97,8 +98,8 @@ class ArticleList extends React.Component {
         return (<div className="articles">
                 <Link to="/create" className="navbar-brand">Create a post! </Link>
                 {
-                  this.props.articles.map(article => {
-                    return <Article article={article}/>
+                  this.props.articles.map((article, idx) => {
+                    return <Article key={idx} article={article}/>
                   })
                 }
              
