@@ -276,7 +276,8 @@ class Chat extends React.Component{
       <div>
         <h1>Chat</h1>
         <ul>
-        { this.state.messages.map( (msg, idx) => <li key={'msg-' + idx }>{ msg.message }</li> )}
+        { this.state.messages.map( (msg, idx) => <li key={'msg-' + idx }>
+          <em>{msg.username}:</em> { msg.message }</li> )}
         </ul>
         <hr/>
         <form onSubmit={this.handleSubmit} >
