@@ -8,4 +8,3 @@ source $activate;
 pip install -r ./requirements.txt;
 bash deploy.sh;
 npm install;
-npm run build;
