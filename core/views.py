@@ -9,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
 
-from .models import NewsItem
-from .serializers import NewsItemSerializer
+from .models import NewsItem, ChatMessage
+from .serializers import NewsItemSerializer, ChatMessageSerializer
 
 from django.conf import settings 
 
@@ -34,3 +34,9 @@ class ApiNewsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = NewsItem.objects.all()
     serializer_class = NewsItemSerializer
 
+
+class MessageHistory(generics.ListAPIView):
+    serializer_class = ChatMessageSerializer
+
+    def get_queryset(self):
+        return ChatMessage.objects.filter(room__group_name=self.kwargs['room'])

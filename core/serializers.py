@@ -1,7 +1,7 @@
 import requests
 
 from rest_framework import serializers
-from .models import NewsItem
+from .models import NewsItem, ChatMessage
 
 class NewsItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,6 +12,11 @@ class NewsItemSerializer(serializers.ModelSerializer):
         if link_exists(value):
             return value
         raise serializers.ValidationError("Link doesn't exist")
+
+class ChatMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatMessage
+        fields = '__all__'
 
 def link_exists(url):
     if url.startswith('http'):

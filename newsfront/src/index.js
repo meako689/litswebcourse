@@ -147,7 +147,7 @@ class ArticleEdit extends React.Component{
                 this.state.article).then(
                   result => {
                     this.props.onArticleUpdate(this.state.article);
-                    console.log(result)})
+                    })
     }
     handleChange(event){
         var article = this.state.article;
@@ -197,7 +197,6 @@ class ArticleCreate extends React.Component{
                 this.state.article).then(
                   result => {
                     this.props.onArticleUpdate(this.state.article);
-                    console.log(result);
                     this.setState({redirect: true});})
                   
     }
@@ -243,9 +242,25 @@ class Chat extends React.Component{
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.loadHistory = this.loadHistory.bind(this);
+    }
+
+    loadHistory(){
+      var self = this;
+      let room_name = this.props.articleId ? 'chat_' +  this.props.articleId : 'chat_all';
+
+      axios.get(APIURL+'/chat/'+room_name).then(response => {
+        let messages = response.data;
+        self.setState({
+          messages : messages,
+          newMessage:self.state.newMessage
+        });
+      });
     }
     componentDidMount(){
       let serverUrl = WSURL+'/news/chat/'+this.props.articleId;
+      this.loadHistory();
+
       this.connection = new WebSocket(serverUrl);
 
       this.connection.onmessage = evt => {
@@ -278,7 +293,7 @@ class Chat extends React.Component{
         <h1>Chat</h1>
         <ul>
         { this.state.messages.map( (msg, idx) => <li key={'msg-' + idx }>
-          <em>{msg.username}:</em> { msg.message }</li> )}
+          <em>{msg.username}:</em> { msg.text }</li> )}
         </ul>
         <hr/>
         <form onSubmit={this.handleSubmit} >
